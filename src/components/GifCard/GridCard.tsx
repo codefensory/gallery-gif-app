@@ -8,9 +8,7 @@ import { CardEmpty } from "./CardEmpty";
 const CARDS = Array.from({ length: 15 });
 
 export const Card = (props: any) => {
-  return (
-    <img draggable={false} className="w-auto h-full" src={props.url} />
-  );
+  return <img draggable={false} className="w-auto h-full" src={props.url} />;
 };
 
 const GifCard = (props: any) => {
@@ -33,7 +31,6 @@ const GifCard = (props: any) => {
         <CardEmpty />
       ) : (
         <motion.div
-          layoutId={data.id}
           className="w-full h-[15vh]"
           onClick={() => {
             if (data?.id) {

@@ -33,7 +33,10 @@ function App() {
               className="absolute w-full h-full backdrop-blur-sm bg-[rgb(0,0,0,0.3)]"
             ></motion.div>
             <motion.div
-              layoutId={activeSession.id}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              initial={{ scale: 0.4, opacity: 0 }}
+              exit={{ opacity: 0 }}
               className="absolute w-full h-2/3 p-4"
             >
               <img
