@@ -17,7 +17,7 @@ export const Card = (props: any) => {
   return (
     <img
       draggable={false}
-      className="w-auto h-full object-cover"
+      className="w-full h-full object-cover"
       src={props.url}
     />
   );
