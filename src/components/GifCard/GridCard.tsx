@@ -1,22 +1,49 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { useAtomValue, useSetAtom } from "jotai";
-import { activeSessionAtom, isDraggingAtom, totalAtom } from "../../store";
+import { useAtomValue, useSetAtom, useAtom } from "jotai";
+import {
+  activeSessionAtom,
+  sessionsSelectedsAtom,
+  deleteModeAtom,
+  isDraggingAtom,
+  totalAtom,
+} from "../../store";
 import { CardEmpty } from "./CardEmpty";
 
-const CARDS = Array.from({ length: 15 });
+const CARDS = Array.from({ length: 12 });
 
 export const Card = (props: any) => {
-  return <img draggable={false} className="w-auto h-full" src={props.url} />;
+  return (
+    <img
+      draggable={false}
+      className="w-auto h-full object-cover"
+      src={props.url}
+    />
+  );
 };
 
-const GifCard = (props: any) => {
+interface GifCardProps {
+  id: string;
+  isLoading: boolean;
+  data: any;
+}
+
+const selectedStyle =
+  " after:absolute after:w-full after:h-full after:bg-red-500 after:opacity-50 after:top-0 after:select-none after:pointer-events-none";
+
+const GifCard = (props: GifCardProps) => {
   const isDragging = useAtomValue(isDraggingAtom);
 
-  const setActiveSession = useSetAtom(activeSessionAtom);
+  const setActiveSession = useSetAtom<any, any, any>(activeSessionAtom);
 
   const data = props.data;
+
+  const deleteMode = useAtomValue(deleteModeAtom);
+
+  const [sessionsSeleteds, setSessionsSeleteds] = useAtom<any, any, any>(
+    sessionsSelectedsAtom
+  );
 
   return (
     <motion.div
@@ -25,7 +52,10 @@ const GifCard = (props: any) => {
         ease: "easeInOut",
         duration: 0.2,
       }}
-      className="relative w-full h-[15vh]"
+      className={
+        "relative w-full h-[15vh] rounded-[20px] overflow-hidden" +
+        (deleteMode && sessionsSeleteds[data?.id] ? selectedStyle : "")
+      }
     >
       {props.isLoading || !data?.preview ? (
         <CardEmpty />
@@ -34,6 +64,14 @@ const GifCard = (props: any) => {
           className="w-full h-[15vh]"
           onClick={() => {
             if (data?.id) {
+              if (deleteMode) {
+                setSessionsSeleteds((prev: any) => ({
+                  ...prev,
+                  [data.id]: !prev[data.id],
+                }));
+
+                return;
+              }
               setActiveSession({
                 id: data.id,
                 downloadUrl: data.downloadUrl,
@@ -89,7 +127,7 @@ export const GridCard = (props: any) => {
   }
 
   return (
-    <div className="w-full grid grid-cols-3 gap-2 p-4">
+    <div className="absolute w-full h-auto grid grid-cols-3 gap-6 p-16 top-1/2 -translate-y-1/2">
       {CARDS.map((_, index) => (
         <GifCard
           key={index}

@@ -24,7 +24,7 @@ export const HistoryItem = (props: Props) => {
       animate={{
         scale: isDragging ? 0.9 : 1,
       }}
-      className="absolute w-full top-0"
+      className="absolute w-full top-0 h-full"
       style={{ left: (page - 1) * 100 + "%" }}
     >
       {props.children({ ...props })}

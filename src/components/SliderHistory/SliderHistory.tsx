@@ -31,9 +31,8 @@ export const SliderHistory: FC<PropsWithChildren<Props>> = (props) => {
   const children = useMemo(
     () =>
       Children.map<any, any>(props.children, (child, index) => {
-        const page = childrenOrder.current.find(
-          (val) => val.index === index
-        )?.page;
+        const page = childrenOrder.current.find((val) => val.index === index)
+          ?.page;
 
         return cloneElement(child, {
           page,
