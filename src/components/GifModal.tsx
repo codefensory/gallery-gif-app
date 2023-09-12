@@ -33,7 +33,7 @@ export const GifModal = () => {
               boxShadow: "0px 9px 6px 0px rgba(0, 0, 0, 0.25)",
             }}
           >
-            <div className="w-[458px] h-[812px] mx-auto mt-[34px] bg-black rounded-[17px]">
+            <div className="w-[458px] h-[812px] mx-auto mt-[34px] bg-black rounded-[17px] overflow-hidden">
               <img
                 draggable={false}
                 className="w-auto h-full object-contain"
