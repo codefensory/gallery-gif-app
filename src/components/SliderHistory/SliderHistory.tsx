@@ -40,7 +40,7 @@ export const SliderHistory: FC<PropsWithChildren<Props>> = (props) => {
           isActive: index === childActive.current,
         });
       }),
-    [props.limit, props.children]
+    [props.limit, props.children, childActive.current]
   );
 
   const handlerDragEnd = (_: any, info: any) => {
