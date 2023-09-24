@@ -40,6 +40,8 @@ function App() {
 
       setDeleteMode(false);
 
+      window.location.reload();
+
       return;
     }
 
